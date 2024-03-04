@@ -3,7 +3,7 @@ import copy
 
 def get_input(label):
     try:
-        return int(input(f"Goal untuk {label} : default ('n')? "))
+        return int(input(f"Goal untuk {label}, default ('n')? "))
     except ValueError:
         return 'n'
 
@@ -14,6 +14,7 @@ def is_valid(state, goal):
     if ((not isinstance(gx, int) and y == gy) 
         or (gx == x and not isinstance(gy, int)) 
         or ((x, y) == (gx, gy))
+        or (not isinstance(gx, int) and not isinstance(gy, int))
     ):
         return True
 
@@ -28,7 +29,7 @@ def recursice_random_search(initial, goal, n=0):
     index_rule = rules.index(func_rule) + 1
     initial = func_rule(*initial)
     
-    print(f"Aturan ke-{index_rule} : {proir_initial} -> {initial}")
+    print(f"{n}: Aturan ke-{index_rule} : {proir_initial} -> {initial}")
     
     return recursice_random_search(initial, goal, n+1)
 
