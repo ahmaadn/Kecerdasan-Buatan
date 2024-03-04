@@ -33,6 +33,20 @@ def recursife_random_search(initial, goal, n=0):
     
     return recursife_random_search(initial, goal, n+1)
 
+def random_search(initial, goal):
+    if is_valid(initial, goal):
+        return initial
+    n = 1
+    while True:
+        func_rule = random.choice(rules)
+        proir_initial = copy.copy(initial)
+        index_rule = rules.index(func_rule) + 1
+        initial = func_rule(*initial)
+        print(f"{n}: Aturan ke-{index_rule} : {proir_initial} -> {initial}")
+        
+        if is_valid(initial, goal):
+            return initial
+        n += 1
 
 rules = [
     lambda x, y : (4, y) if x < 4 else (x, y), # 1
