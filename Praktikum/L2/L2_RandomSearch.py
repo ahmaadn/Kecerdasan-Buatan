@@ -20,7 +20,7 @@ def is_valid(state, goal):
 
     return False
 
-def recursice_random_search(initial, goal, n=0):
+def recursife_random_search(initial, goal, n=0):
     if is_valid(initial, goal):
             return initial
     
@@ -31,14 +31,14 @@ def recursice_random_search(initial, goal, n=0):
     
     print(f"{n}: Aturan ke-{index_rule} : {proir_initial} -> {initial}")
     
-    return recursice_random_search(initial, goal, n+1)
+    return recursife_random_search(initial, goal, n+1)
 
 
 rules = [
-    lambda x, y : (4, y) if x < x else (x, y), # 1
+    lambda x, y : (4, y) if x < 4 else (x, y), # 1
     lambda x, y : (x, 3) if y < 3 else (x, y), # 2
     lambda x, y : (0, y) if x > 0 else (x, y), # 3
-    lambda x, y : (0, y) if y > 0 else (x, y), # 4
+    lambda x, y : (x, 0) if y > 0 else (x, y), # 4
     lambda x, y : (4, y - (4-x)) if x + y >= 4 and y > 0 else (x, y), # 5
     lambda x, y : (x - (3-y), 3) if x + y >= 3 and x > 0 else (x, y), # 6
     lambda x, y : (x + y, 0) if x + y <= 4 and y > 0 else (x, y), # 7
@@ -47,4 +47,4 @@ rules = [
 
 gx = get_input("x")
 gy = get_input("y")
-x, y = recursice_random_search((0, 0), (gx, gy))
+x, y = recursife_random_search((0, 0), (gx, gy))
