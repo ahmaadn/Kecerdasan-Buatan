@@ -1,7 +1,10 @@
 from collections import deque
 
+# Keadaan awal
+initial_state = (0, 0)
+
 # Fungsi untuk menghasilkan keadaan baru berdasarkan aturan produksi
-def apply_rule(state, rule):
+def rules(state, rule):
     x, y = state
     if rule == 1:
         return (4, y)
@@ -37,22 +40,20 @@ def bfs(initial_state):
             return path + [state]
 
         for rule in range(1, 9):
-            new_state = apply_rule(state, rule)
+            new_state = rules(state, rule)
             if new_state not in visited:
                 queue.append((new_state, path + [state]))
 
     return None  # Jika tidak ditemukan solusi
 
-# Keadaan awal
-initial_state = (0, 0)
 
 # Cari solusi menggunakan BFS
 solution = bfs(initial_state)
 
 # Tampilkan solusi
 if solution:
-    print("Langkah-langkah untuk mencapai 2 galon air di jerigen B:")
+    print("Langkah-langkah untuk mencapai 2 galon air di jerigen y:")
     for step, state in enumerate(solution):
-        print(f"Langkah {step + 1}: Jerigen A = {state[0]} galon, Jerigen B = {state[1]} galon")
+        print(f"Langkah {step + 1}: Jerigen x = {state[0]} galon, Jerigen y = {state[1]} galon")
 else:
     print("Tidak ditemukan solusi.")
