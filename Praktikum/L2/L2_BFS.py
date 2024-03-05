@@ -10,20 +10,22 @@ def is_goal_state(state):
 # Algoritma BFS untuk mencari solusi
 def bfs(initial_state):
     visited = set()  # Set untuk menyimpan keadaan yang sudah dikunjungi
-    queue = deque([(initial_state, [])])  # Antrian berisi keadaan dan jalur yang sudah dilalui
+    index_rules = []
+    queue = deque([(initial_state, [], [])])  # Antrian berisi keadaan dan jalur yang sudah dilalui
 
     while queue:
-        state, path = queue.popleft()
+        state, path, path_rules = queue.popleft()
         visited.add(state)
 
         if is_goal_state(state):
-            return path + [state]
+            return path + [state], path_rules
 
         for rule in range(1, 9):
-            func_rule = rules[rule-1]
+            func_rule = rules[rule - 1]
             new_state = func_rule(*state)
+
             if new_state not in visited:
-                queue.append((new_state, path + [state]))
+                queue.append((new_state, path + [state], path_rules + [rule]))
 
     return None  # Jika tidak ditemukan solusi
 
@@ -44,7 +46,7 @@ solution = bfs(initial_state)
 # Tampilkan solusi
 if solution:
     print("Langkah-langkah untuk mencapai 2 galon air di jerigen y:")
-    for step, state in enumerate(solution):
-        print(f"Langkah {step + 1}: Jerigen x = {state[0]} galon, Jerigen y = {state[1]} galon")
+    for step, (state, rule) in enumerate(zip(*solution)):
+        print(f"{step}: Atruran ke-{rule}: Langkah {step + 1}: Jerigen x = {state[0]} galon, Jerigen y = {state[1]} galon")
 else:
     print("Tidak ditemukan solusi.")
