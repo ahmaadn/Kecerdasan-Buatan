@@ -116,7 +116,7 @@ awal = get_input("Tentukan awal rute: default ('parapat')? ", valid=list(graph.k
 tujuan = get_input("Tentukan tujuan rute: default ('asahan')? ", valid=list(graph.keys()),  default='asahan')
 cost = get_input("Tentukan cost: default (300)? ", valid=list(graph.keys()),  default=300, res=int)
 
-result = cost_limited_a(awal, tujuan, cost)
+result = cost_limited_a(awal, tujuan, cost)#type: ignore
 
 if result:
     print(f"\njalanan terpendek dari {awal} ke {tujuan}")
