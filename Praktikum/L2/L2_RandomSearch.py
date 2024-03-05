@@ -1,13 +1,13 @@
 import random
 
-def get_input(label, min_num):
+def get_input(label, min_num, default='n'):
     try:
-        result =  int(input(f"Goal untuk {label}, default ('n')? "))
+        result =  int(input(f"Goal untuk {label}, default ('{default}')? "))
         if result >= 0 and result <= min_num:
             return result
         return get_input(label, min_num)
     except ValueError:
-        return 'n'
+        return default
 
 def is_valid(state, goal):
     x, y = state
@@ -65,6 +65,6 @@ rules = [
 min_x = 4
 max_y = 3
 gx = get_input("x", min_x)
-gy = get_input("y", max_y)
+gy = get_input("y", max_y, default=2)
 x, y = random_search((0, 0), (gx, gy))
 print(f"Akhir: {(x, y)}")

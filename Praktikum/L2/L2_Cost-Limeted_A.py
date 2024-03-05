@@ -59,7 +59,27 @@ def print_jalan(tujuan, jalan):
     path.reverse()
     
     print(" -> ".join(path))
+    
+    total = 0
+    for n in range(len(path)-1):
+        total += graph[path[n]][path[n+1]]
+    
+    print(f"Dengan total panjang jalan: {total}")
 
+def get_input(label, valid=None, default=None, res=str):
+    """Mendapatkan input dari user"""
+    try:
+        result = res(input(label))
+        if valid and result in valid or not valid and result:
+            return result
+
+    except ValueError:
+        pass
+
+    if default:
+        return default
+
+    return get_input(label, valid, default, res)
 
 graph = {
     'balige': {'tebing': 209, "siantar": 133, "parapat": 80},
@@ -92,14 +112,14 @@ heuristic = {
     "kisaran": 66,
 }
 
-awal = 'parapat'
-tujuan = 'asahan'
-cost = 300
+awal = get_input("Tentukan awal rute: default ('parapat')? ", valid=list(graph.keys()),  default='parapat')
+tujuan = get_input("Tentukan tujuan rute: default ('asahan')? ", valid=list(graph.keys()),  default='asahan')
+cost = get_input("Tentukan cost: default (300)? ", valid=list(graph.keys()),  default=300, res=int)
 
 result = cost_limited_a(awal, tujuan, cost)
 
 if result:
-    print("jalanan terpendek dari {} ke {}")
+    print(f"\njalanan terpendek dari {awal} ke {tujuan}")
     print_jalan("asahan", result)
 else:
     print("Jalanan terpendek tidak di temukan")
