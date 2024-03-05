@@ -3,26 +3,6 @@ from collections import deque
 # Keadaan awal
 initial_state = (0, 0)
 
-# Fungsi untuk menghasilkan keadaan baru berdasarkan aturan produksi
-def rules(state, rule):
-    x, y = state
-    if rule == 1:
-        return (4, y)
-    elif rule == 2:
-        return (x, 3)
-    elif rule == 3:
-        return (0, y)
-    elif rule == 4:
-        return (x, 0)
-    elif rule == 5:
-        return (4, y - (4-x))
-    elif rule == 6:
-        return (x - (3-y), 3)
-    elif rule == 7:
-        return (x+y, 0)
-    elif rule == 8:
-        return (0, y+x)
-
 # Fungsi untuk mengecek apakah keadaan sudah merupakan goal state
 def is_goal_state(state):
     return state[1] == 2
@@ -40,12 +20,23 @@ def bfs(initial_state):
             return path + [state]
 
         for rule in range(1, 9):
-            new_state = rules(state, rule)
+            func_rule = rules[rule-1]
+            new_state = func_rule(*state)
             if new_state not in visited:
                 queue.append((new_state, path + [state]))
 
     return None  # Jika tidak ditemukan solusi
 
+rules = [
+    lambda x, y : (4, y) if x < 4 else (x, y), # 1
+    lambda x, y : (x, 3) if y < 3 else (x, y), # 2
+    lambda x, y : (0, y) if x > 0 else (x, y), # 3
+    lambda x, y : (x, 0) if y > 0 else (x, y), # 4
+    lambda x, y : (4, y - (4-x)) if x + y >= 4 and y > 0 else (x, y), # 5
+    lambda x, y : (x - (3-y), 3) if x + y >= 3 and x > 0 else (x, y), # 6
+    lambda x, y : (x + y, 0) if x + y <= 4 and y > 0 else (x, y), # 7
+    lambda x, y : (0, y + x)  if x + y <= 3 and x > 0 else (x, y), # 8
+]
 
 # Cari solusi menggunakan BFS
 solution = bfs(initial_state)
