@@ -21,21 +21,21 @@ def cost_limited_a(awal, tujuan, cost_limited=1000):
             return None
 
         # lakukan iterasi setiap titik yang saling terhubung.
-        for titi_baru, jarak in graph[titik].items():
+        for titik_baru, jarak in graph[titik].items():
             new_g = g_explorasi[titik] + jarak
 
             # cek setiap titik baru apakah sebuah tujuan
-            if titi_baru == tujuan:
-                g_explorasi[titi_baru] = new_g
-                explorasi[titi_baru] = titik
+            if titik_baru == tujuan:
+                g_explorasi[titik_baru] = new_g
+                explorasi[titik_baru] = titik
                 return explorasi
 
             # cek jika titik baru mempunyai nilai g atau
             # titik baru mempunyai niai g yang lebih kecil dengan nilai g sebelumnya
-            if titi_baru not in g_explorasi or new_g < g_explorasi[titi_baru]:
+            if titik_baru not in g_explorasi or new_g < g_explorasi[titik_baru]:
 
                 # simpan nilai g untuk titik baru
-                g_explorasi[titi_baru] = new_g
+                g_explorasi[titik_baru] = new_g
                 new_h = heuristic[titi_baru]
                 new_f = new_g + new_h
 
