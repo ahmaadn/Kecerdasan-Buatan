@@ -67,8 +67,8 @@ def simulated_analing(awal, tujuan, max_iterasi, suhu, alpha):
             solusi_terbaik = rute_sekarang
     
         suhu *= alpha
-        
-    return rute_sekarang
+
+    return solusi_terbaik
 
 def get_input(label, valid=None, default=None, res=str):
     """Mendapatkan input dari user"""
@@ -102,7 +102,7 @@ graph = {
 awal = get_input("Awal tujuan default ('parapat')? ", valid=list(graph.keys()), default='parapat')
 tujuan = get_input("Awal tujuan default ('asahan')? ", valid=list(graph.keys()), default='asahan')
 max_iteration = get_input("input max iterasi: default (1000)? ", default=1000, res=int) # type: ignore
-suhu = get_input("input suhu: default (1000) ? ", default=100, res=int) # type: ignore
+suhu = get_input("input suhu: default (100) ? ", default=100, res=int) # type: ignore
 alpha = get_input("input alpha:  default (0.9) ? ", default=0.9, res=float) # type: ignore
 
 rute = simulated_analing(awal, tujuan, max_iteration, suhu, alpha)

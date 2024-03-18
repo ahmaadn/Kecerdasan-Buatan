@@ -1,11 +1,11 @@
 import random
 
-def get_input(label, min_num, default='n'):
+def get_input(label, max_num, default='n'):
     try:
-        result =  int(input(f"Goal untuk {label}, default ('{default}')? "))
-        if result >= 0 and result <= min_num:
+        result =  int(input(f"Goal untuk {label}, max: {max_num} default ('{default}')? "))
+        if result >= 0 and result <= max_num:
             return result
-        return get_input(label, min_num)
+        return get_input(label, max_num)
     except ValueError:
         return default
 
@@ -30,8 +30,8 @@ def recursive_random_search(initial, goal, n=0):
     proir_initial = initial[:]
     index_rule = rules.index(func_rule) + 1
     initial = func_rule(*initial)
-
-    print(f"{n}: Aturan ke-{index_rule} : {proir_initial} -> {initial}")
+    if proir_initial != initial:
+        print(f"{n}: Aturan ke-{index_rule} : {proir_initial} -> {initial}")
 
     return recursive_random_search(initial, goal, n+1)
 
@@ -45,6 +45,10 @@ def random_search(initial, goal):
         proir_initial = initial[:]
         index_rule = rules.index(func_rule) + 1
         initial = func_rule(*initial)
+
+        if initial == proir_initial:
+            continue
+
         print(f"{n}: Aturan ke-{index_rule} : {proir_initial} -> {initial}")
 
         if is_valid(initial, goal):
@@ -62,9 +66,9 @@ rules = [
     lambda x, y : (0, y + x)  if x + y <= 3 and x > 0 else (x, y), # 8
 ]
 
-min_x = 4
+max_x = 4
 max_y = 3
-gx = get_input("x", min_x)
+gx = get_input("x", max_x)
 gy = get_input("y", max_y, default=2)
 x, y = random_search((0, 0), (gx, gy))
 print(f"Akhir: {(x, y)}")

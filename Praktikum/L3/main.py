@@ -1,10 +1,3 @@
-
-# jarak tempuh / menit
-# ketua : ahmad nur
-# anggota 1 : yoga
-# anggota 2 : dimas
-# anggota 3 : ramadhan
-# 1 menit == 350 meter
 import random
 import math
 
@@ -20,7 +13,7 @@ def rute_acak(awal, tujuan):
     kunjungan.pop(kunjungan.index(titik))
     kunjungan.pop(kunjungan.index(tujuan))
 
-    while True:
+    while kunjungan:
         rute_baru = list(graph[titik].keys())
         titik_baru = random.choice(rute_baru)
         
@@ -31,10 +24,7 @@ def rute_acak(awal, tujuan):
         # menambahkan titik yang baru saja dikunjungi
         rute.append(titik_baru)
         kunjungan.pop(kunjungan.index(titik_baru))
-
-        # semua kunujungan telah dikunjungi
-        if not kunjungan:
-            break
+        titik = titik_baru
 
     rute.append(tujuan)
     return rute
@@ -48,9 +38,9 @@ def hitung_nilai_rute(rute):
         # dapatkan jumlah rumah makan
         jml_makan = jumlah_rumah_makan[titik][next_titik]
         jarak = graph[titik][next_titik]
-        
+
         # hitung total waktu yang ditempuh        
-        cost += jarak + (jml_makan * 5)
+        cost += jarak + (jml_makan * 0)
 
     return cost
 
@@ -83,7 +73,7 @@ def simulated_analing(awal, tujuan, max_iterasi, suhu, alpha):
         # cek jika rute sekarang lebih baik dari solusi terbaik
         if hitung_nilai_rute(rute_sekarang) < hitung_nilai_rute(solusi_terbaik):
             solusi_terbaik = rute_sekarang
-        
+
         # debug
         print("")
         print(f"iter {i+1}")
@@ -92,7 +82,13 @@ def simulated_analing(awal, tujuan, max_iterasi, suhu, alpha):
     
         suhu *= alpha
 
-    return rute_sekarang
+    return solusi_terbaik
+
+# jarak tempuh / menit
+# ketua : ahmad nur
+# anggota 1 : yoga
+# anggota 2 : dimas
+# anggota 3 : ramadhan
 
 graph = {
     'Kampus ITG': {"Rumah ketua": 29, 'anggota 1': 13, 'anggota 2': 21, 'anggota 3': 51},
@@ -114,9 +110,7 @@ jumlah_rumah_makan = {
 
 awal = 'Rumah ketua'
 tujuan = 'Kampus ITG'
-
-rute = simulated_analing(awal, tujuan, 10, 100, 0.9)
-print()
+rute = simulated_analing(awal, tujuan, 5, 100, 0.9)
 print()
 print(f"Rute terbaik dari {awal} le {tujuan} adalah: ")
 print(" -> ".join(rute))
