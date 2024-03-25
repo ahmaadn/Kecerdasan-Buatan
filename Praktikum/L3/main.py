@@ -40,7 +40,7 @@ def hitung_nilai_rute(rute):
         jarak = graph[titik][next_titik]
 
         # hitung total waktu yang ditempuh        
-        cost += jarak + (jml_makan * 0)
+        cost += jarak + (jml_makan * 5)
 
     return cost
 
