@@ -20,10 +20,22 @@ orangTua(karen, susan).
 orangTua(jack, ray).
 orangTua(karen, ray).
 orangTua(john, peter).
-orangTua(mary, peter).
+orangTua(susan, peter).
+orangTua(john, mary).
+orangTua(susan, mary).
 
 menikah(X, Y) :-
     orangTua(X, Z), orangTua(Y, Z).
 
+% X adalah ibu dari Y
 ibu(X, Y) :-
-    orangTua()
+    orangTua(X, Y), perempuan(X).
+
+% X adalah ayah dari Y
+ayah(X, Y) :-
+    orangTua(X, Y), lakiLaki(X).
+
+memilikiAnak(X) :-
+    orangTua(X, _).
+
+saudaraPerempuan(X, Y) :-
