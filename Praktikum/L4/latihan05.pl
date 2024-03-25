@@ -25,7 +25,7 @@ orangTua(john, mary).
 orangTua(susan, mary).
 
 menikah(X, Y) :-
-    orangTua(X, Z), orangTua(Y, Z).
+    orangTua(X, Z), orangTua(Y, Z), X\==Y.
 
 % X adalah ibu dari Y
 ibu(X, Y) :-
@@ -40,11 +40,11 @@ memilikiAnak(X) :-
 
 % X adalah saudara perempuan dari Y
 saudaraPerempuan(X, Y) :-
-    orangTua(Z, X), orangTua(Z, Y), perempuan(X).
+    orangTua(Z, X), orangTua(Z, Y), perempuan(X), X\==Y.
 
 % X adalah saudara laki-laki dari Y
 saudaraLakilaki(X, Y) :-
-    orangTua(Z, X), orangTua(Z, Y), lakiLaki(X).
+    orangTua(Z, X), orangTua(Z, Y), lakiLaki(X), X\==Y.
 
 % X adalah kakek dari Y
 kakek(X, Y) :-
