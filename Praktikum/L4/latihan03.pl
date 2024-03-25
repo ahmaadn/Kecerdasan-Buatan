@@ -2,6 +2,7 @@ anakIbu(andi).
 anakIbu(budi).
 anakIbu(cika).
 anakIbu(emil).
+anakIbu(dani).
 not(anakIbu(fadil)).
 
 sukaPermen(andi).
@@ -10,7 +11,9 @@ sukaPermen(cika).
 not(sukaPermen(dani)).
 not(sukaPermen(emil)).
 
-apakahAnakIbu(X) :- anakIbu(X).
 
-anakIbuDapatPermen(X, Y) :-
-    anakIbu(X), sukaPermen(Y).
+anakIbuDapatPermen(X) :-
+    anakIbu(X), sukaPermen(X).
+
+anakIbuDapatUang(X) :-
+    anakIbu(X), not(sukaPermen(X)).
