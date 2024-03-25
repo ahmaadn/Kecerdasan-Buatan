@@ -2,15 +2,16 @@ anakIbu(andi).
 anakIbu(budi).
 anakIbu(cika).
 anakIbu(emil).
+anakIbu(dani).
 not(anakIbu(fadil)).
 
 sukaPermen(andi).
 sukaPermen(budi).
 sukaPermen(cika).
-not(sukaPermen(cika)).
-not(sukaPermen(cika)).
+not(sukaPermen(dani)).
+not(sukaPermen(emil)).
 
-apakahAnakIbu(X) :- anakIbu(X).
+:- discontiguous not/1.
 
-anakIbuDapatPermen(X, Y) :-
-    anakIbu(X), sukaPermen(Y).
+anakIbuDapatPermen(X) :-
+    anakIbu(X), sukaPermen(X).
