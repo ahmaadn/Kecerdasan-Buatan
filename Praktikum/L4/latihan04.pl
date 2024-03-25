@@ -9,4 +9,4 @@ is_keponakan(Z, Y) :-
     anakKandung(Z, X), saudaraKembar(X, Y).
 
 
-not(sah(menikah(Z, Y))) :- is_keponakan(Z, Y).
+tidak_sah(Y, X) :- is_keponakan(Y, X).
