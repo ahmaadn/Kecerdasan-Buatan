@@ -38,4 +38,18 @@ ayah(X, Y) :-
 memilikiAnak(X) :-
     orangTua(X, _).
 
+% X adalah saudara perempuan dari Y
 saudaraPerempuan(X, Y) :-
+    orangTua(Z, X), orangTua(Z, Y), perempuan(X).
+
+% X adalah saudara laki-laki dari Y
+saudaraLakilaki(X, Y) :-
+    orangTua(Z, X), orangTua(Z, Y), lakiLaki(X).
+
+% X adalah paman dari Y
+paman(X, Y) :-
+    orangTua(Z, Y), orangTua(X, Z), lakiLaki(X).
+
+% X adalah bibi dari Y
+bibi(X, Y) :-
+    orangTua(Z, Y), orangTua(X, Z), perempuan(X).
