@@ -10,3 +10,4 @@ is_keponakan(Z, Y) :-
 
 
 tidak_sah(Y, X) :- is_keponakan(Y, X).
+
