@@ -46,10 +46,10 @@ saudaraPerempuan(X, Y) :-
 saudaraLakilaki(X, Y) :-
     orangTua(Z, X), orangTua(Z, Y), lakiLaki(X).
 
-% X adalah paman dari Y
-paman(X, Y) :-
+% X adalah kakek dari Y
+kakek(X, Y) :-
     orangTua(Z, Y), orangTua(X, Z), lakiLaki(X).
 
-% X adalah bibi dari Y
-bibi(X, Y) :-
+% X adalah nenek dari Y
+nenek(X, Y) :-
     orangTua(Z, Y), orangTua(X, Z), perempuan(X).
