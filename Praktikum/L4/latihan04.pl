@@ -9,5 +9,5 @@ is_keponakan(Z, Y) :-
     anakKandung(Z, X), saudaraKembar(X, Y).
 
 
-tidak_sah(Y, X) :- is_keponakan(Y, X).
+tidak_sah(Y, X) :- is_keponakan(Y, X), menikah(Y, X).
 
