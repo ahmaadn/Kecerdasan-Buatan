@@ -1,53 +1,55 @@
 :- dynamic user_fact/1.
-:- dynamic infered_fact/1.
+:- dynamic inferred_fact/1.
 
-% Predikat untuk menghapus semua fakta sebelum program dijalankan
 clear_facts :-
     retractall(user_fact(_)),
-    retractall(infered_fact(_)).
+    retractall(inferred_fact(_)).
 
-% predikat untuk meminta input fakta dari pengguna
+% Predikat untuk meminta input fakta dari pengguna
 ask_for_facts :-
-    write('Masukan fakta-fakta awal (ketik "Sunny."/"Dry."/"Wet."/"Rainy."/"Selesai." untuk berhenti): '), nl,
+    write('Masukkan fakta-fakta awal (ketik "sunny."/"dry."/"wet."/"rainy"/"selesai." untuk berhenti): '), nl,
     read(Fact),
     (
         Fact \= selesai ->
-            (
-                assert(user_fact(Fact)),
-                ask_for_facts
-            );
+        (
+            assert(user_fact(Fact)),
+            ask_for_facts
+        );
         true
     ).
 
-% rules
-rule(play) :- user_fact(sunny), user_fact(dry).
-rule(not_play) :- user_fact(sunny), user_fact(wet).
-rule(not_play) :- user_fact(rainy).
+% RUles
+%  fakta play dapat dibuktikan jika sunny dan dry terpenuhi
+can_prove(play) :- user_fact(sunny), user_fact(dry).
+% fakta no_play dapat dibuktikan jika sunny dan wet terpenuhi
+can_prove(not_play) :- user_fact(sunny), user_fact(wet).
+% fakta no_play dapat dibuktikan jika rainy terpenuhi
+can_prove(not_play) :- user_fact(rainy).
 
-% inference engine
-infer :-
-    rule(X),
-    not(infered_fact(X),
-    assert(infered_fact(X)),
-    fail.
-infer.
+% Inference engine
+infer(Fact) :-
+    can_prove(Fact),
+    assert(inferred_fact(Fact)).
 
-% print
+infer(_).
+
+% Print inferred facts
 print_facts :-
     write('Facts: '), nl,
     user_fact(X),
     write('- '), write(X), nl,
     fail.
 print_facts :-
-    write('Infered Facts: '), nl,
-    infered_fact(X),
-    write('- '), write(X), nl,
+    write('Inferred Facts: '), nl,
+    inferred_fact(Y),
+    write('- '), write(Y), nl,
     fail.
 print_facts.
 
-% start
+% Mulai Program
 start :-
-    clear_facts, %clear fact
+    clear_facts,
     ask_for_facts,
-    infer,
+    infer(play),
+    infer(no_play),
     print_facts.
