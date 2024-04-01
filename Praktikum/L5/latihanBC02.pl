@@ -27,29 +27,30 @@ can_prove(not_play) :- user_fact(sunny), user_fact(wet).
 can_prove(not_play) :- user_fact(rainy).
 
 % Inference engine
-infer(Fact) :-
-    can_prove(Fact),
-    assert(inferred_fact(Fact)).
+% inference engine
+infer :-
+    can_prove(X),
+    not(inferred_fact(X)),
+    assert(inferred_fact(X)),
+    fail.
+infer.
 
-infer(_).
-
-% Print inferred facts
+% print
 print_facts :-
     write('Facts: '), nl,
     user_fact(X),
     write('- '), write(X), nl,
     fail.
 print_facts :-
-    write('Inferred Facts: '), nl,
-    inferred_fact(Y),
-    write('- '), write(Y), nl,
+    write('Infered Facts: '), nl,
+    inferred_fact(X),
+    write('- '), write(X), nl,
     fail.
 print_facts.
 
-% Mulai Program
+% start
 start :-
-    clear_facts,
+    clear_facts, %clear fact
     ask_for_facts,
-    infer(play),
-    infer(no_play),
+    infer,
     print_facts.
