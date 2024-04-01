@@ -27,7 +27,7 @@ rule(not_play) :- user_fact(rainy).
 % inference engine
 infer :-
     rule(X),
-    not(infered_fact(X),
+    not(infered_fact(X)),
     assert(infered_fact(X)),
     fail.
 infer.
