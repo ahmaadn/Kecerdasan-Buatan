@@ -8,6 +8,6 @@ is_saudaraKandung(X, Y) :-
 is_keponakan(Z, Y) :-
     anakKandung(Z, X), saudaraKembar(X, Y).
 
-
+% cek
 tidak_sah(Y, X) :- is_keponakan(Y, X), menikah(Y, X).
 
