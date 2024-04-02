@@ -28,9 +28,9 @@ can_prove(not_play) :- user_fact(rainy).
 
 % Inference engine
 % inference engine
-infer :-
+infer(X) :-
     can_prove(X),
-    not(inferred_fact(X)),
+    % not(inferred_fact(X)),
     assert(inferred_fact(X)),
     fail.
 infer.
@@ -52,5 +52,6 @@ print_facts.
 start :-
     clear_facts, %clear fact
     ask_for_facts,
-    infer,
+    infer(play),
+    infer(not_play),
     print_facts.
