@@ -7,7 +7,7 @@ clear_facts :-
 
 % Predikat untuk meminta input fakta dari pengguna
 ask_for_facts :-
-    write('Masukkan fakta-fakta awal (ketik "sunny."/"dry."/"wet."/"rainy"/"selesai." untuk berhenti): '), nl,
+    write('Masukan fakta fakta awal (ketik "sunny."/"dry."/"wet."/"rainy."/"selesai." untuk berhenti): '), nl,
     read(Fact),
     (
         Fact \= selesai ->
@@ -26,31 +26,27 @@ can_prove(not_play) :- user_fact(sunny), user_fact(wet).
 % fakta no_play dapat dibuktikan jika rainy terpenuhi
 can_prove(not_play) :- user_fact(rainy).
 
-% Inference engine
-% inference engine
-infer(X) :-
-    can_prove(X),
-    % not(inferred_fact(X)),
-    assert(inferred_fact(X)),
-    fail.
-infer.
+infer(Fact) :-
+    can_prove(Fact),
+    assert(inferred_fact(Fact)),!.
+infer(_).
 
-% print
 print_facts :-
-    write('Facts: '), nl,
+    write('Facts:'), nl,
     user_fact(X),
-    write('- '), write(X), nl,
+    write('- '),
+    write(X), nl,
     fail.
 print_facts :-
-    write('Infered Facts: '), nl,
+    write('Inferred Facts:'), nl,
     inferred_fact(X),
-    write('- '), write(X), nl,
+    write('- '),
+    write(X), nl,
     fail.
 print_facts.
 
-% start
 start :-
-    clear_facts, %clear fact
+    clear_facts,
     ask_for_facts,
     infer(play),
     infer(not_play),
