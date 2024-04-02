@@ -19,7 +19,7 @@ saudara(Saudara1, Saudara2) :-
 
 paman(Paman, Keponakan) :-
     saudara(Paman, Orangtua),
-    Orangtua(Orangtua, Keponakan).
+    orangtua(Orangtua, Keponakan).
 
 cucu(Cucu, Kakek) :-
     kakek(Kakek, Cucu).
