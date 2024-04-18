@@ -5,7 +5,7 @@ DATA_PENYAKIT = {
         [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8],
     ),
     "kulit bermiyak": (
-        ["G001", "G008", "G009", "G016"],
+        ["G007", "G008", "G009", "G016"],
         [0.8, 0.8, 0.8, 0.8],
     ),
     "kulit kering": (
@@ -59,3 +59,7 @@ def hitung_nilai_probalitas(gejala_user: list[str]):
             penyakit_prob = penyakit
 
     return penyakit_prob, posterior_prob
+
+input_user = ['G005', 'G018', 'G019', 'G020']
+probalitas = hitung_nilai_probalitas(input_user)
+print('hasil diagnosa :', probalitas)
