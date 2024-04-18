@@ -19,24 +19,34 @@ penyakit = {
 
 # menghitung certainty factor
 def hitung_nilai_cf(gejala_cf):
-    diagnosa_penyakit = []  # Menyimpan diagnosa untuk setiap penyakit
+    cf_penyakit = 0.0
+    nm_penyakit = ""
 
     for P, (GejalaP, CFP) in penyakit.items():
+        # Inisialisasi nilai CF kombinasi
         cf_kombinasi = 0.0
 
+        # Hitung CF kombinasi untuk setiap gejala
         for G, cf_user in gejala_cf.items():
+            # Hitung CF
             if G in GejalaP:
-                for i, gp in enumerate(GejalaP):  # Memperbaiki iterasi
+                for gp in GejalaP:
+                    i = 0
                     if gp == G:
                         cf_gejala = CFP[i] * cf_user
-
-                cf_kombinasi = cf_kombinasi + (1 - cf_kombinasi) * cf_gejala
+                    i = i + 1
             else:
                 cf_gejala = 0.0
 
-        diagnosa_penyakit.append((P, cf_kombinasi))  # Menyimpan hasil diagnosa
+            # Hitung CF kombinasi
+            cf_kombinasi = cf_kombinasi + (1 - cf_kombinasi) * cf_gejala
 
-    return diagnosa_penyakit
+        # mencari nilai CF Penyakit
+        if cf_kombinasi > cf_penyakit:
+            cf_penyakit = max(cf_penyakit, cf_kombinasi)
+            nm_penyakit = P
+
+    return nm_penyakit, cf_penyakit
 
 
 # Contoh penggunaan
@@ -47,18 +57,5 @@ input_user = {
     "sakit_tenggorokan": 0.2,
     "bersin": 0.6,
 }
-daftar_diagnosa = hitung_nilai_cf(input_user)
-
-# Cetak semua hasil diagnosa
-print("Hasil Diagnosa:")
-penyakit_tertinggi = None
-cf_tertinggi = 0.0
-for penyakit, cf in daftar_diagnosa:
-    print(f"{penyakit}: CF = {cf}")
-    if cf > cf_tertinggi:
-        cf_tertinggi = cf
-        penyakit_tertinggi = penyakit
-
-# Cetak hasil diagnosa akhir (penyakit dengan CF tertinggi)
-print("\nHasil Diagnosa Akhir:")
-print(f"Penyakit dengan CF Tertinggi: {penyakit_tertinggi}, CF = {cf_tertinggi}")
+cf = hitung_nilai_cf(input_user)
+print("Hasil Diagnosa :", cf)

@@ -1,10 +1,10 @@
 # Fakta-fakta
 gejala = {
-    "batuk": True,
-    "demam": True,
-    "pilek": True,
-    "sakit_tenggorokan": True,
-    "bersin": True,
+    "G001": True,
+    "G002": True,
+    "G002": True,
+    "GOO3": True,
+    # SAMPE G020
 }
 # Aturan/ CF Awal
 penyakit = {
