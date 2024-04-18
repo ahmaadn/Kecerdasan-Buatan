@@ -3,31 +3,15 @@ import math
 
 
 def rute_acak(awal, tujuan):
-    titik = awal
-    rute = [titik]
-
     # mendapatkan semua jalan yang harus di kunjungi
     kunjungan = list(graph.keys())
     
     # mengeluarkan titik awal dan tujuan
-    kunjungan.pop(kunjungan.index(titik))
+    kunjungan.pop(kunjungan.index(awal))
     kunjungan.pop(kunjungan.index(tujuan))
 
-    while kunjungan:
-        rute_baru = list(graph[titik].keys())
-        titik_baru = random.choice(rute_baru)
-        
-        # titik yang dipilih sudah pernah dikunjungi        
-        if titik_baru not in kunjungan:
-            continue
-
-        # menambahkan titik yang baru saja dikunjungi
-        rute.append(titik_baru)
-        kunjungan.pop(kunjungan.index(titik_baru))
-        titik = titik_baru
-
-    rute.append(tujuan)
-    return rute
+    random.shuffle(kunjungan)
+    return [awal, *kunjungan, tujuan]
 
 def hitung_nilai_rute(rute):
     cost = 0
