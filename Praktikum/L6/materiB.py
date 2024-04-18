@@ -68,7 +68,7 @@ input_user = {
     "GOO5": 0.6,
     "G018": 0.8,
     "G019": 0.8,
-    "G019": 0.8,
+    "G020": 0.8,
 }
 cf = hitung_nilai_cf(input_user)
 print("Hasil Diagnosa :", cf)
